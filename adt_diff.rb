@@ -10,9 +10,9 @@ def parse_file(file)
   file.each do |line|
     next unless line.include?('Push')
     element = line.split(/[\s{]/).first
-    index = line.split(/[\s{}]/)[2] unless line.split(' ')[1].split('{')[1].nil?
+    index = line.split(/[\s{}]/)[2] unless line.split(/[\s{]/)[2].nil?
 
-    double_array[element] = [] unless double_array.key?(element)
+    double_array[element] ||= []
     double_array[element] << index unless double_array[element].include?(index)
   end
 
@@ -26,7 +26,7 @@ file_array_1.each do |key, key_value|
   key_value.sort!
   key_value.each do |key_2|
     if !file_array_2[key].nil? && file_array_2[key].include?(key_2)
-      w_file.write("the element #{key} with index #{key_2} appears in both files\n")
+      w_file.write("the element #{key} with index #{key_2} is in both files\n")
     end
   end
 end
