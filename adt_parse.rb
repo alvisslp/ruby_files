@@ -6,11 +6,11 @@ double_array = {}
 
 file.each do |line|
   next unless line.include?('Push')
-  element = line.split(' ')[1].split('{').first
-  index = line.split(' ')[1].split('{')[1].split('}').first unless line.split(' ')[1].split('{')[1].nil?
+  element = line.split(/[\s{]/)[1]
+  index = line.split(/[\s{}]/)[2] unless line.split(/[\s{]/)[1].nil?
 
-  double_array[element] = {} unless double_array.key?(element)
-  double_array[element][index] = 0 unless double_array[element].key?(index)
+  double_array[element] ||= {}
+  double_array[element][index] ||= 0
   double_array[element][index] = double_array[element][index] + 1
 end
 
@@ -22,6 +22,8 @@ w_file.write("\n\n\n\n\n\n")
 
 double_array.each do |key, key_value|
   key_value.each do |key_2, value|
-    w_file.write("the element #{key} with index #{key_2} appears #{value} times\n") if value > 1
+    if value > 1
+      w_file.write("element #{key} and index #{key_2} appears #{value} times\n")
+    end
   end
 end
