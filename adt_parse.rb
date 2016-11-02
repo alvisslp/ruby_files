@@ -21,9 +21,9 @@ end
 w_file.write("\n\n\n\n\n\n")
 
 double_array.each do |key, key_value|
-  key_value.each do |key_2, value|
+  key_value.each do |key2, value|
     if value > 1
-      w_file.write("element #{key} and index #{key_2} appears #{value} times\n")
+      w_file.write("element #{key} and index #{key2} appears #{value} times\n")
     end
   end
 end
